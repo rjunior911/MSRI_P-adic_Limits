@@ -1,0 +1,154 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4997,        145]
+NotebookOptionsPosition[      4545,        124]
+NotebookOutlinePosition[      4880,        139]
+CellTagsIndexPosition[      4837,        136]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Valuation", "[", 
+   RowBox[{"n_", ",", "p_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{"Valuation", "[", 
+    RowBox[{"n", ",", "p"}], "]"}], "=", 
+   RowBox[{
+    RowBox[{"IntegerExponent", "[", 
+     RowBox[{
+      RowBox[{"Abs", "[", 
+       RowBox[{"Numerator", "[", "n", "]"}], "]"}], ",", "p"}], "]"}], "-", 
+    RowBox[{"IntegerExponent", "[", 
+     RowBox[{
+      RowBox[{"Denominator", "[", "n", "]"}], ",", "p"}], 
+     "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.612788194411903*^9, 3.612788233293432*^9}, {
+  3.612788283066276*^9, 3.612788291945343*^9}, {3.6127883287757196`*^9, 
+  3.6127884001248817`*^9}, {3.612788808949082*^9, 3.6127888237229443`*^9}, {
+  3.612788903261599*^9, 3.612788920537676*^9}, {3.6127889710721693`*^9, 
+  3.612788978157585*^9}, {3.612794229229023*^9, 3.612794237382777*^9}}],
+
+Cell[BoxData[
+ RowBox[{"SetAttributes", "[", 
+  RowBox[{"Valuation", ",", "Listable"}], "]"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["Cyclotomic", "Section",
+ CellChangeTimes->{{3.61332694988597*^9, 3.613326966012699*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ListLinePlot", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"Valuation", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"n", "^", "m"}], "-", "1"}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"n", "-", "1"}], ")"}]}], ",", "p"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"n", ",", "2", ",", "range"}], "}"}]}], "]"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"p", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"m", ",", "2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"range", ",", "50"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6133268004391003`*^9, 3.6133269300952044`*^9}, {
+  3.613327105945065*^9, 3.613327111362772*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`m$$ = 2, $CellContext`p$$ = 
+    2, $CellContext`range$$ = 50, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`p$$], 2}, {
+      Hold[$CellContext`m$$], 2}, {
+      Hold[$CellContext`range$$], 50}}, Typeset`size$$ = {576., {175., 181.}},
+     Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`m$$ = 2, $CellContext`p$$ = 
+        2, $CellContext`range$$ = 50}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListLinePlot[
+        Table[
+         $CellContext`Valuation[($CellContext`n^$CellContext`m$$ - 
+           1)/($CellContext`n - 1), $CellContext`p$$], {$CellContext`n, 
+          2, $CellContext`range$$}], ImageSize -> Large, PlotRange -> All], 
+      "Specifications" :> {{$CellContext`p$$, 2}, {$CellContext`m$$, 
+         2}, {$CellContext`range$$, 50}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{623., {240., 247.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.613326901485915*^9, 3.613326931040271*^9}, 
+   3.6133271120722322`*^9, 3.613328966139163*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1366, 672},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 846, 20, 32, "Input"],
+Cell[1406, 42, 104, 2, 32, "Input"],
+Cell[CellGroupData[{
+Cell[1535, 48, 94, 1, 81, "Section"],
+Cell[CellGroupData[{
+Cell[1654, 53, 930, 26, 55, "Input"],
+Cell[2587, 81, 1930, 39, 504, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

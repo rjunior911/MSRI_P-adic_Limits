@@ -1,0 +1,604 @@
+%{{{1 Preamble
+% Written by Graeme, 2001-03 based on Norman's original microlensing
+% poster.
+%
+% See discussion and documentation at
+% <http://www.astro.gla.ac.uk/users/norman/docs/posters/>
+%
+% $Id: poster-template-landscape.tex,v 1.2 2002/12/03 11:25:46 norman Exp $
+
+
+% Default mode is landscape, which is what we want, however dvips and
+% a0poster do not quite do the right thing, so we end up with text in
+% landscape style (wide and short) down a portrait page (narrow and
+% long). Printing this onto the a0 printer chops the right hand edge.
+% However, 'psnup' can save the day, reorienting the text so that the
+% poster prints lengthways down an a0 portrait bounding box.
+%
+% 'psnup -w85cm -h119cm -f poster_from_dvips.ps poster_in_landscape.ps'
+
+\documentclass[a0]{a0poster}
+% You might find the 'draft' option to a0 poster useful if you have
+% lots of graphics, because they can take some time to process and
+% display. (\documentclass[a0,draft]{a0poster})
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+
+% The textpos package is necessary to position textblocks at arbitary
+% places on the page.
+\usepackage[absolute]{textpos}
+
+% Graphics to include graphics. Times is nice on posters, but you
+% might want to switch it off and go for CMR fonts.
+
+\usepackage{graphics, graphicx, amsfonts, times, wrapfig, amssymb, amsmath, amsthm, amsxtra, multicol, cancel, enumitem, mathtools,hyperref,float}
+% These colors are tried and tested for titles and headers. Don't
+% over use color!
+\usepackage{color}
+\definecolor{DarkBlue}{rgb}{0.1,0.1,0.5}
+\definecolor{Red}{rgb}{0.9,0.0,0.1}
+\definecolor{DarkBlue}{rgb}{0.1,0.1,0.5}
+\definecolor{DarkGreen}{rgb}{0.0,0.4,0.0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% see documentation for a0poster class for the size options here
+\let\Textsize\normalsize
+\def\RHead#1{\noindent\hbox to \hsize{\hfil{\bf \LARGE\color{DarkBlue} #1}}\smallskip}
+\def\LHead#1{\noindent{\bf \LARGE\color{DarkBlue} #1}\smallskip}
+\def\LHeadGreen#1{\noindent{\bf \LARGE\color{DarkGreen} #1}\smallskip}
+\def\CHead#1{\noindent\hbox to \hsize{\hfil{\bf \LARGE\color{DarkBlue} #1}\hfil}\smallskip}
+\def\Subhead#1{\noindent{\large\color{DarkBlue} #1}}
+\def\Title#1{\noindent{\VERYHuge\color{Red} #1}}
+\newcommand\doubleline{\hrule\ \vspace{-10pt} \hrule}
+% Next line controls interline spacing. 1 = single space
+\renewcommand{\baselinestretch}{1.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SOME USER DEFINED ITEMS
+\newcommand{\dis}{\displaystyle}
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\thref}[1]{Theorem \ref{#1}}
+\newcommand{\coref}[1]{Corollary \ref{#1}}
+\newcommand{\lemref}[1]{Lemma \ref{#1}}
+\newcommand{\propref}[1]{Proposition \ref{#1}}
+\newcommand{\eref}[1]{Equation \ref{#1}}
+\newcommand{\exref}[1]{Example \ref{#1}}
+\newcommand{\fcite}[1]{[#1]}
+
+\newcommand{\thlabel}[1]{\label{#1}}
+
+\providecommand{\ceil}[1]{\left \lceil #1 \right \rceil }
+\providecommand{\floor}[1]{\left \lfloor #1 \right \rfloor }
+\providecommand{\Prod}{\prod\limits}
+\newcommand{\complex}{\mathbb{C}}
+% Set up the grid
+%
+% Note that [40mm,40mm] is the margin round the edge of the page --
+% it is _not_ the grid size. That is always defined as
+% PAGE_WIDTH/HGRID and PAGE_HEIGHT/VGRID. In this case we use
+% 23 x 12. This gives us three columns of width 7 boxes, with a gap of
+% width 1 in between them. 12 vertical boxes is a good number to work
+% with.
+%
+% Note however that texblocks can be positioned fractionally as well,
+% so really any convenient grid size can be used.
+%
+\TPGrid[40mm,40mm]{23}{12}      % 3 cols of width 7, plus 2 gaps width 1
+
+\parindent=0pt
+\parskip=0.5\baselineskip
+%{{{1 Document
+
+\begin{document}
+
+% Understanding textblocks is the key to being able to do a poster in
+% LaTeX. In
+%
+%    \begin{textblock}{wid}(x,y)
+%    ...
+%    \end{textblock}
+%
+% the first argument gives the block width in units of the grid
+% cells specified above in \TPGrid; the second gives the (x,y)
+% position on the grid, with the y axis pointing down.
+
+% You will have to do a lot of previewing to get everything in the
+% right place.
+
+% This gives good title positioning for a portrait poster.
+% Watch out for hyphenation in titles - LaTeX will do it
+% but it looks awful.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HERE BEGINS THE DOCUMENT PROPER
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title                                             %
+% The title at coordinates (0,-0.35)                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{23}(0,-0.35)
+  \begin{center}
+    \Title{P-adic Limits of Catalan Subsequences}
+  \end{center}
+\end{textblock}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Authors                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\firstauthor}{Alexandra Michel}
+\newcommand{\firstauthoruni}{Mills College}
+\newcommand{\firstauthoremail}{amichel@mills.edu}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\secondauthor}{Andrew Miller}
+\newcommand{\secondauthoruni}{Amherst College}
+\newcommand{\secondauthoremail}{amiller@amherst.edu}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\thirdauthor}{Robert (Joseph) Rennie}
+\newcommand{\thirdauthoruni}{Reed College}
+\newcommand{\thirdauthoremail}{jrennie@reed.edu}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(0,0.25)
+  \begin{center}
+    {\color{DarkBlue}\LARGE
+    % This is where the first author is printed
+  \firstauthor}\\
+  {\color{DarkBlue}\Large{\it \firstauthoruni}}
+\end{center}
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(8,0.25)
+  \begin{center}
+    {\color{DarkBlue}\LARGE
+    % This is where the second author is printed
+  \secondauthor}\\
+  {\color{DarkBlue}\Large{\it \secondauthoruni}}
+\end{center}
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(16,0.25)
+  \begin{center}
+    {\color{DarkBlue}\LARGE
+    % This is where the third author is printed
+  \thirdauthor}\\
+  {\color{DarkBlue}\Large{\it \thirdauthoruni}}
+\end{center}
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The next few lines are for the double line under the  %
+% title and authors.                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{23}(0,0.78)
+  \begin{center}
+    \smallskip
+    \doubleline
+  \end{center}
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MSRI-UP Logo                                      %
+% It is at the upper right corner                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{2}(22,-0.25)
+  %\resizebox{1.5\TPHorizModule}{!}{\includegraphics{msriuplogo.jpg}}
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLUMN 1                                          %
+% khe top of column 1 is at coordinates (0,1.0)     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{{{1 Actual Stuff
+%{{{2 Abstract
+\begin{textblock}{7}(0,1.0)
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Abstract                                          %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \LHead{Abstract}\\
+ Methods for determining $p$-adic convergence of sequences which are expressible in terms of products of factorials are established. The Catalan sequence is investigated, using these methods, for $p$-adically convergent subsequences. An infinite class of convergent subsequences of Catalan numbers is found for every prime, and the limits of these subsequences are evaluated.
+  \medskip
+  \hrule
+\end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{{{2 Introduction
+\begin{textblock}{7}(0,2.75)
+  \LHead{Introduction}\\
+\indent A student familiar with introductory analysis will be familiar with the construction of $\mathbb{R}$ as a completion of $\mathbb{Q}$. In this construction of $\mathbb{R}$, its elements are defined as equivalence classes of sequences in $\mathbb{Q}$ which are Cauchy convergent with respect to the familiar Euclidean distance metric.  
+
+The \textit{$p$-adic field}, denoted $\mathbb{Q}_p$, is a second completion of $\mathbb{Q}$. Instead of the familiar Euclidean metric, it uses a metric induced by the {\it $p$-adic norm}.
+
+\begin{definition} The {\it $p$-adic valuation} of an integer $n$, denoted $\nu_p(n)$, is defined to be the greatest power of $p$ that divides $n$. For a rational number $x=\frac{a}{b}$, define $\nu_p(x)=\nu_p(|a|)-\nu_p(|b|)$. The {\it $p$-adic norm} of $x$ is defined as $|x|_p=p^{-\nu_p(x)}$.
+\end{definition}
+
+%\begin{example}
+%$\nu_5(35)=1$, because only one power of $5$ divides $35$, and  $|35|_5=5^{-\nu_5(35)}=5^{-1}=\frac{1}{5}$. 
+%$\nu_5(25)=2$, so $|25|_5=5^{-\nu_5(25)}=5^{-2}=\frac{1}{25}$.
+%\end{example}
+  
+% From this example, we see that a sequence of numbers will  approach zero $5$-adically if and only if the numbers are divisible by increasingly large powers of $5$. More generally, if we have a sequence is divisible by , each term will have $p$-adic norm smaller than the last, and hence the sequence will converge to zero $p$-adically. The notion of Cauchy convergence with respect to the $p$-adic norm can be defined in a manner analogous to that of Cauchy convergence with respect to the Euclidean norm. The {\it $p$-adic numbers} are then the completion of $\mathbb{Q}$ with respect to the $p$-adic norm.
+
+The $p$-adic metric is defined as the $p$-adic norm of the difference of two numbers in $\mathbb{Q}_p$. As noted, the completion of $\mathbb{Q}$ under the $p$-adic metric yields $\Q_p$. A detailed account of the completion of $\Q$ to $\Q_p$ can be found in \fcite{FG}.
+
+
+The definition of $p$-adic convergence is analogous to that of convergence with respect to the Euclidean metric.
+
+%\begin{definition}[$p$-adic Convergence]
+%Given a sequence $\left{ a_n \right} \in \Q_p$, we say that $\left{ a_n \right} $ \textit{converges $p$-adically} if for all $k\geq1$, there exists an $N\in\mathbb{N}$ such that for all $m$, $n>N,$
+%$$|a_m-a_n|_p\leq p^{-k}.$$
+%\end{definition}
+
+\begin{example} In $\mathbb{Q}_p$, $\Lim{n\rightarrow\infty}p^n=0.$ This is because as $n$ increases, $\nu_p(p^n)=n$ increases, and thus $|p^n|_p=p^{-n}$ tends to 0.
+The sequence $\{p^n+1\}$ tends to 1. This is because the sequence $\left\{ (p^n+1)-1 \right\}$ tends to $0$.
+\end{example}
+
+
+\noindent Because elements of combinatorial sequences are natural numbers, to investigate the convergence of the sequences it is superfluous to work in $\Q_p$. Instead, one need only work in the completion of $\integers$ under the $p$-adic metric; this is a subset of $\Q_p$ called the \textit{$p$-adic integers} (denoted $\mathbb{Z}_p$). It is well-known that $\integers_p$ is a compact subset of $\Q_p$, which is itself a metric space. Thus, every combinatorial sequence has convergent subsequences in $\integers_p$. Furthermore, convergence in $p$-adic fields is easier to determine than in euclidean space due to the following 
+
+%Investigating the convergence of these subsequences with respect to the $p$-adic metric has a few important advantages. The most important of these is that the $p$-adic metric satisfies a strong-triangle inequality.
+
+\begin{lemma}[Strong Triangle Inequality]\thlabel{triangle}
+For all $x$, $y\in\Q_p$, 
+$$|x-y|_p\leq\max\{|x|_p,|y|_p\}.$$
+\end{lemma}
+
+\noindent Using the strong triangle inequality, it can be shown that a sequence converges $p$-adically if and only if its difference sequence converges.
+
+\begin{corollary}[Convergence Criterion]
+\thlabel{conv crit}
+In $\Q_p$, a sequence $\{a_n\}$ converges if and only if the sequence $\{a_{n+1}-a_n\}$ converges.
+\end{corollary}
+
+\noindent For proofs of \propref{triangle} and \propref{conv crit}, see \fcite{FG} or \fcite{SK}. 
+
+%\begin{proof}
+%Given $k\geq1$ and sufficiently large $m$ and $n$,
+%\begin{eqnarray*}
+%\left|f(n)-f(m)\right|_p\leq p^{-k}
+%&\text{if and only if }& \nu_p(f(n)-f(m))\geq k\\
+%&\text{if and only if }& f(n)-f(m)\equiv 0\pmod{p^k}\\
+%&\text{if and only if }& f(n)\equiv f(m)\pmod{p^k},
+%\end{eqnarray*}
+%proving the first statement of \propref{eq def}. The proof of the second statement is almost identical.\end{proof}
+
+%Note that it is easy to see that $p^n\rightarrow 0$ using \propref{eq def}. Given $k\geq1$, for all $n>k$, $p^n\equiv0\pmod{p^k}$.
+
+
+
+\end{textblock}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLUMN 2                                          %
+% The top of column 2 is at coordinates (8,1.0)     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{{{2 Results
+\begin{textblock}{7}(8,1.0)
+  \LHead{Methods and Results}\\
+  %{{{3 Methods
+%We first note equivalent statements of the definition of $p$-adic convergence.
+
+%\begin{proposition}[Equivalent Definition of $p$-adic Convergence]\thlabel{eq def}
+%In $\Q_p$, a sequence $\{a_n\}$ converges if and only if for all $k\geq1$, it is eventually constant modulo $p^k$. Furthermore, $\{a_n\}$ converges to a limit $L$ if and only if for all $k\geq1$, it is eventually constant to $L$ modulo $p^k$.
+%\end{proposition}
+
+We determine for all $a\in\mathbb{N}$: 
+%\footnote{This limit is a $p$-adic limit, as are all other limits stated in this paper.}
+\begin{equation*}\label{limit eq}\
+\Lim{n\rightarrow\infty}C(ap^n)
+\end{equation*} 
+
+%\begin{example}\label{2n}
+%Data generated in Mathematica suggest that $\{C(2^n)\}$ converges. The following graphic shows the binary expansion of $C(2^n)$ for $n=1,2,\dots,25$. The $i^{th}$ row and $j^{th}$ column gives the coefficient on $2^{j-1}$ of $C(2^i)$. Coefficients with value 1 are represented by a black dot, those with value 0 by a white dot.
+
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[scale=.5]{Catalan.jpg}
+%\end{center}
+%\caption{Binary expansions of the first 25 terms of the sequence $C(2^n)$; the power of 2 increases from left to right.}
+%\label{fig:catalan}
+%\end{figure}
+
+%\noindent For example, the first row shows the binary representation of $C(1)=1$. In binary, $1=1+0\cdot2+0\cdot2^2+\cdots$. The coefficient 1 on $2^0$ is represented by the black dot in the first column, and the 0 coefficients on the remaining powers of 2 are represented by white dots in the remaining columns.
+
+%It is perhaps easiest to see why Figure \ref{fig:catalan} suggests that $\{C(2^n)\}$ converges by appealing to \propref{conv crit}. The binary expansion of $C(2^n)-C(2^{n-1})$ can be obtained by subtracting the $n-1^{st}$ row from the $n^{th}$ row. The resulting binary expansion has a 0 coefficient for all powers of 2 for which the coefficient of $C(2^n)$ agrees with that of $C(2^{n-1})$. As $n$ increases, Figure \ref{fig:catalan} indicates that the binary expansion of $C(2^n)-C(2^{n-1})$ has a 0 coefficient for an increasingly long string of powers of 2 (starting with $2^0$). This indicates that the $2$-adic valuation of $C(2^n)-C(2^{n-1})$ is increasing with $n$, and thus that $|C(2^n)-C(2^{n-1})|$ is tending to 0.
+%\end{example}
+
+%For general $a$ and $p$, to find the limit of $\{C(ap^n)\}$ it suffices to find the limit of $\{{2ap^n \choose ap^n}\}.$ 
+%This is demonstrated by the following lemma.
+
+%\begin{lemma}
+%\thlabel{plimit}
+%In $\mathbb{Z}_p$, $\Lim{n\rightarrow\infty}C(ap^n)=\Lim{n\rightarrow\infty}{2ap^n \choose ap^n}$. 
+%\end{lemma}
+
+%\begin{proof}
+%Let $k\geq 1$ be arbitrary. Given $n>k$, note that
+%$$\left|\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right|_p<p^{-k} \text{ if and only if } \nu_p\left[\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right]>k,$$ so it suffices to show the latter. We have
+%\begin{eqnarray*}
+%\nu_p\left[\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right]&=&\nu_p\left[\left(\frac{1}{ap^n+1}-1\right)\binom{2ap^n}{ap^n}\right]\\
+%&=&\nu_p\left(\frac{ap^n}{ap^n+1}\right)+ \nu_p\left[\binom{2ap^n}{ap^n}\right] \\
+%&\geq& n> k,
+%\end{eqnarray*} 
+%as desired.
+%\end{proof}
+\noindent This problem can be reduced to that of finding the limit of the sequence of central binomial coefficients $\{{2ap^n \choose ap^n}\}$. 
+The elements of this latter sequence can be expressed in terms of the well-known $p$-adic gamma function. 
+%On $\mathbb{Z}$, the gamma function is defined to be $$\Gamma(n)=(n-1)!.$$
+%We can thus write $${2ap^n \choose ap^n}=\frac{\Gamma(2ap^n+1)}{(\Gamma(ap^n+1))^2}.$$ 
+%Since we are concerned with convergence in $\mathbb{Z}_p$, it will be more useful to write  ${2ap^n \choose ap^n}$ in terms of a $p$-adic analog to the gamma function.
+
+\begin{definition}[$p$-adic Gamma Function]
+Let $p$ be prime, and $x\in \mathbb{Z}_p$. The \textit{$p$-adic gamma function}, $\Gamma_p(x)$, is defined to be the unique continuous $p$-adic interpolation of the function taking the following values over $\mathbb{N}$.
+$$\Gamma_p(n)=(-1)^n\prod_{\substack{k=1\\p\nmid k}}^{n-1} k \hspace{2mm}\text{, and }\hspace{2mm}  \Gamma_p(0)=1.$$
+\end{definition}
+%For a detailed exposition of the $p$-adic gamma function, including a proof of its existence and uniqueness, see \cite{FG}. 
+The following lemma expresses ${2ap^n \choose ap^n}$ in terms of the $p$-adic gamma function.
+
+%\begin{proposition}\thlabel{factorialgamma}
+%For all primes $p$ and all $n\in\naturals$, 
+%$$n!=\floor{\frac{n}{p}}!\Gamma_p(n+1)(-1)^{n+1}p^{\floor{\frac{n}{p}}}.$$
+%\end{proposition}
+
+%\begin{proof} We have
+%$$\Gamma_p(n+1) =(-1)^{n+1}\prod_{\substack{k=1\\p\nmid k}}^{n} k 
+%=\frac{(-1)^{n+1}(n)!}{\prod\limits_{\substack{k=1\\p\mid k}}^{n-1} k} 
+%=\frac{(-1)^{n+1}(n)!}{p^{\floor{\frac{n}{p}}}\floor{\frac{n}{p}}!}.$$
+
+%Solving for $n!$ gives the result.
+%\end{proof}
+%! USE WORDS
+\begin{lemma}\thlabel{primepowerfactorial}
+For all primes $p$ and all $a\in\mathbb{N}$, $$\binom{2ap^n}{ap^n}=\binom{2a}{a}\prod\limits_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}.$$
+\end{lemma}
+
+%\begin{proof}%{{{%{{{
+%We first use \propref{factorialgamma} to express $(ap^n)!$ which gives
+%\begin{equation}
+%(ap^n)!  = (ap^{n-1})!\Gamma_p(ap^n+1)(-1)^{ap^n+1}p^{ap^{n-1}}.
+%\end{equation}
+%This is a first-order recursion on $n$. It can be used to show via induction that 
+%\begin{equation}\label{induction}
+%(ap^n)! = a!p^{\frac{ap^n-a}{p-1}}(-1)^{\sum_{i=1}^{n}ap^i+1}\prod_{i=1}^{n}\Gamma_p(ap^i+1).
+%\end{equation}
+
+%For the base case ($n=0$), we have $(ap^0)!=a!=a!p^0$. \\
+
+%For the inductive step, assume that \eref{induction} holds when $n=k$. Then
+%\begin{equation*}
+%\begin{split}
+%(ap^{k+1})!&=(ap^k)!\Gamma_p(ap^{k+1}+1)(-1)^{ap^{k+1}+1}p^{ap^k}\\
+%&=\left[a!p^{\frac{ap^k-a}{p-1}}(-1)^{\sum_{i=1}^{k}ap^i+1}\prod_{i=1}^{k}\Gamma_p(ap^i+1)\right]\Gamma_p(ap^{k+1}+1)(-1)^{ap^{k+1}+1}p^{ap^k}\\
+%&= a!p^{\frac{ap^{k+1}-a}{p-1}}(-1)^{\sum_{i=1}^{k+1}ap^i+1}\prod_{i=1}^{k+1}\Gamma_p(ap^i+1), 
+%\end{split}
+%\end{equation*}
+%completing the induction and proving that \eref{induction} holds for all $n$. It can thus be shown that
+%$$\binom{2ap^n}{ap^n}=\frac{(2ap^n)!}{(ap^n)!^2}=\frac{(2a)!(-1)^{n}}{(a!)^2}\prod_{i=1}^n \frac{\Gamma_p(2ap^i+1)}{\Gamma_p(ap^i+1)^2}=\binom{2a}{a}\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2},$$
+%the desired result.\end{proof}
+
+%!REPHRASE
+%\lemref{plimit} and \lemref{primepowerfactorial} imply that 
+%\begin{equation}
+%\label{implications}C(ap^n)\rightarrow {2ap^n \choose ap^n} \rightarrow {2a \choose a}\prod\limits_{i=1}^\infty \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2},
+%\end{equation} 
+%if the latter converges. To show this, one more lemma is needed.%}}}%}}}
+Expressing a combinatorial sequence in terms of $\Gamma_p$ is very powerful because we can invoke its continuity to get useful results such as the following
+\begin{lemma}\thlabel{p gamma}
+Let $p$ be prime and let $a\in\mathbb{N}$. In $\mathbb{Z}_p$,
+$\Lim{n\rightarrow \infty}\Gamma_p(ap^n)=1.$
+\end{lemma} 
+
+\noindent Our main results follow (although not trivially) from \lemref{p gamma}.
+
+\begin{theorem}[Limits of Catalan Subsequences]\thlabel{limit thm}
+For all primes $p$ and all $a\in\mathbb{Z}$, the $p$-adic limit of $C(ap^n)$ exists and is given by $$\Lim{n\rightarrow \infty} C(ap^n)=
+\binom{2a}{a}\prod_{i=1}^{\infty}\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}.=\binom{2a}{a}\prod_{\substack{i=1\\p\nmid i}}^{\infty}i^{2\floor{\log_p(i/a)}-\lfloor{\log(i/2a)}\rfloor}.$$
+\end{theorem}
+
+%\noindent \textbf{Note:} An elementary proof that $\{C(ap^n)\}$ converges (not that it approaches the stated limit) is given in an Appendix (Section 6).
+
+%\begin{proof}[Proof of \thref{limit thm}]
+%By \lemref{plimit} and \lemref{primepowerfactorial}, it suffices to show that $$\prod_{i=1}^\infty \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}$$ converges.
+
+%To do so, fix $k\geq1$, and let $n>k$ be arbitrary. Then
+%\begin{eqnarray*}
+%\left|\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}-\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right|_p
+%&=&\left|\left(\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right)\left(\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right)\right|_p\\
+%&=&\left|\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right|_p\cdot\left|\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right|_p\\
+%&=&1\cdot\left|\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right|_p\rightarrow0,
+%\end{eqnarray*}
+%where $\Lim{n\rightarrow\infty}\left(\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right)=0$ because by \lemref{p gamma},  $\Gamma_p(2ap^n)\rightarrow 1$ and $\Gamma_p(ap^n)\rightarrow1$.  \end{proof}
+
+%We conclude this section by proving \lemref{p gamma}.
+
+%\begin{proof}[Proof of \lemref{p gamma}]
+%By \propref{eq def}, to prove \lemref{p gamma} it thus suffices to prove that for all $k\geq 1$ and all sufficiently large $n$, 
+%\begin{equation}\label{well def}
+%\Gamma_p(ap^n)\equiv 1\pmod{p^k}.\end{equation}
+%To verfiy this, taking $n>k$ will suffice. For such $n$,\footnote{The arrays here are not matricies. Each row is a product, and the rows are being multiplied together. They are displayed in this way because it makes it easier to see what the terms of $\Gamma_p(ap^n)$ are equivalent to modulo $p^k$.}
+%\begin{eqnarray*}
+ %\Gamma_p(ap^n)&=&(-1)^{ap^n}
+%\left(\begin{array}{ccc}
+%(1) & \cdots & (p^n-1)\\
+%(p^n+1) & \cdots & (2p^n-1)\\
+%\vdots\\
+%((a-1)p^n+1) & \cdots & (ap^n-1)
+%\end{array}\right)
+%\\
+%&\equiv&(-1)^{ap^n}\left((1)\cdots(p^n-1)\right)^a \pmod{p^k}\\
+%&=&(-1)^{ap^n}
+%\left(
+%\begin{array}{ccc}
+%(1) & \cdots & (p^k-1)\\
+%(p^k+1) & \cdots & (2p^k-1)\\
+%\vdots\\
+%(p^{k+1}-p^k+1) & \cdots & (p^{k+1}-1)\\
+%(p^{k+1}+1) & \cdots & (p^{k+1}+p^k-1)\\
+%\vdots\\
+%(p^n-p^k+1) & \cdots & (p^n-1)
+%\end{array}
+%\right)^a\pmod{p^k}\\
+%&\equiv&(-1)^{ap^n}\left((1)\cdots(p^k-1)\right)^{ap^{n-k}} \pmod{p^k}\\
+%&\equiv&(-1)^{ap^n}(p^k-1)^{ap^{n-k}}\equiv(-1)^{ap^n}(-1)^{ap^{n-k}}\equiv(-1)^{ap^{n-k}(1+p^k)}\equiv 1\pmod{p^k}.
+%\end{eqnarray*}
+
+%The second to last equivalence is due to the fact that the factors of the product $(1)\cdots(p^k-1)$ are precisely the elements of the multiplication group $(\mathbb{Z}/p^k\mathbb{Z})^\times$. After multiplying inverses, $p^k-1$, which is its own inverse, remains. The last equivalence follows because either $ap^{n-k}$ or $1+p^k$ is even. This proves \eref{well def}.
+
+%As was noted at the beginning of the proof, \eref{well def} implies that for arbitrary $k$ and all $n>k$, 
+%$$\Gamma_p(ap^n)-1\equiv0\pmod{p^k},$$ so that 
+%$$\nu_p(\Gamma_p(ap^n)-1)\geq k,$$ and finally 
+%\[\left|\Gamma_p(ap^n)-1\right|_p\leq p^{-k}.\qedhere\] \end{proof}
+
+%\begin{example} This example demonstrates \lemref{p gamma} for the case where $a=1$ and $p=2$. For an arbitrary $k\geq1$ and $n>k$, 
+%$$\Gamma_p(2^n)=(-1)^{2^n}(1)(3)\cdots(2^n-3)(2^n-1).$$ The power of (-1) clearly evaluates to 1. The remainder of the expression can be further expanded by writing
+%$$\Gamma_p(2^n)=\overbrace{(1)(3)\cdots(2^k-1)}\overbrace{(2^k+1)(2^k+3)\cdots(2^{k+1}-1)}\cdots\overbrace{(2^{n-1}+1)(2^{n+1}+3)\cdots(2^n-1)}.$$ As the braces indicate, the product can be divided into sections containing $\frac{2^k}{2}=2^{k-1}$ terms. There are $\frac{2^n}{2^k}=2^{n-k}$ such sections. The first is $(1)(3)\cdots(2^k-1)$, and the rest are all of the form $$(2^l+1)(2^l+3)\cdots(2^{l+1}-1),$$ where $l$ runs from $k$ to $n-1$. Thus each section is equivalent to $$(1)(3)\cdots(2^k-1)\pmod{2^k},$$ and we have that $$\Gamma_p(2^n)\equiv\left((1)(3)\cdots(2^k-1)\right)^{2^{n-k}}\pmod{p^k}.$$ As noted in the proof of \lemref{p gamma}, the product $(1)(3)\cdots(2^k-1)$ contains precisely the elements of $(\mathbb{Z}/2^k\mathbb{Z})^\times$. Now $$\left((1)(3)\cdots(2^k-1)\right)^2\equiv 1\pmod{p^k},$$ because when one copy of $(1)(3)\cdots(2^k-1)$ is multiplied by a second copy, every element of the group is multipled by its inverse, yielding 1. Thus, since in the expression for $\Gamma_p(2^n)$ the product $(1)(3)\cdots(2^k-1)$ is raised to a multiple of 2, we get that $\Gamma_p(2^n)\equiv 1\pmod{p^k}$ for all $k\geq1$ and all $n>k$. By \propref{eq def}, this implies that $\Gamma_p(2^n)\rightarrow 1.$
+%\end{example}
+
+%The next section uses the fact that $\Lim{n\rightarrow\infty}C(ap^n)$ is known to find $\Lim{n\rightarrow\infty}C(ap^n+r)$ for all $r\in\mathbb{Z}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This is done using the $p$-adic log. \begin{eqnarray*}
+% \log_p\left(\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right) &=&  \sum_{i=1}^n\log_p\left( \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right) 
+% \end{eqnarray*}
+% This sum converges if and only if the terms converge to zero (i.e if and only if $\log_p\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2} \rightarrow 0$). By continuity of $\log_p$ it suffices to prove that $\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\rightarrow 1$, which is true by straightforward application of \thref{plimit}.
+
+
+
+Given that $\Lim{n\rightarrow\infty}C(ap^n)$ is known, it is not hard to find $\Lim{n\rightarrow\infty}C(ap^n+r)$ for all $r\in\mathbb{Z}$. The latter limit is thus presented as a corollary to \thref{limit thm}.
+
+\begin{corollary}\thlabel{limit cor}Let $r\in\mathbb{Z}$ and let $L=\Lim{n\rightarrow\infty}C(ap^n)$. Then
+$$\Lim{n\rightarrow\infty}C(ap^n+r)=\begin{cases}
+C(r)\cdot L & \mbox{if }r>0\\
+-\frac{1}{2}L & \mbox{if } r=-1 \text{ and } p\neq 2\\
+0 & \mbox{if } r<-1.
+\end{cases}$$
+\end{corollary}
+
+%\begin{proof}
+%Each case will be proven using induction and the recurrence $$C(x+1)=\frac{2(2x+1)}{x+2}C(x),$$ with the base case $C(0)=1$.
+%Begin with the $r>0$ case. For the base case ($r=1$), we have
+%\begin{eqnarray*}
+%C(ap^n+1)&=&\frac{2(2ap^n+1)}{ap^n+2}C(ap^n)
+%\rightarrow \frac{2}{2}\cdot L=C(1)\cdot L,
+%\end{eqnarray*}
+%as desired.
+
+%For the inductive step, suppose that $C(ap^n+r)\rightarrow C(r)\cdot L.$ Then $$C(ap^n+r+1)=\frac{2(2(ap^n+r)+1)}{ap^n+r+2}C(ap^n+r)\rightarrow \frac{2(2r+1)}{r+2}C(r)\cdot L=C(r+1)\cdot L,$$
+%proving the $r>0$ case.
+
+%For the cases for which $r<0$, rewrite the recurrence as $$C(x)=\frac{(x+2)}{2(2x+1)}C(x+1).$$
+%If $r=-1$, then
+%$$C(ap^n-1)=\frac{ap^n-1+2}{2(2(ap^n-1)+1)}C(ap^n)=\frac{ap^n+1}{4ap^n-2}C(ap^n)\rightarrow -\frac{1}{2}\cdot L,$$ as desired.
+
+%For the base case of the $r<-1$ case, we have
+%$$C(ap^n-2)=\frac{ap^n-2+2}{2(2(ap^n-2)+1)}C(ap^n-1)=\frac{ap^n}{4ap^n-6}C(ap^n-1)\rightarrow\frac{0}{-6}\cdot\frac{-1}{2}\cdot L=0.$$
+%Now suppose that $C(ap^n-r)=0$. Then for the inductive step,
+%$$C(ap^n-r-1)=\frac{ap^n-r-1+2}{2(2(ap^n-r-1)+1)}C(ap^n-r)=\frac{ap^n-r+1}{4ap^n-4r-3}C(ap^n-r)\rightarrow\frac{r-1}{4r+3}\cdot 0=0,$$
+%completing the $r<-1$ case and proving the theorem. \end{proof}
+
+%We note two interesting consequences of \coref{limit cor}. First, since $\lim\limits_{n\rightarrow \infty}\frac{C(ap^n+r)}{C(ap^n)}=C(r)$ even when $r<0$, it suggests a definition of $C(n)$ for $n<0$. Such a defintion would, for example, give $C(-1)=-1/2$. 
+
+One interesting consequence is that \coref{limit cor} implies that $C(n)$ does not converge $p$-adically. This is because for a fixed $a$ we can choose distinct values of $r$ that yield convergent subsequences with different limits. Another is in the following
+
+\begin{example}
+In $\mathbb{Z}_p$, $\Lim{n\rightarrow\infty}C(2^n)=2\cdot3\cdot(5\cdot7)^2\cdot(9\cdot11\cdot13\cdot15)^3\cdots.$ This is an infinite product consisting of blocks of $2^n$ consecutive odd numbers raised to the $n+1^{st}$ power.
+\end{example}
+
+
+%\begin{proposition}
+%For any prime $p$, $\{C(n)\}$ does not converge $p$-adically.
+
+%\end{proposition}
+%\begin{proof}
+%Given a prime $p$, suppose that $\{C(n)\}$ converges $p$-adically. Then every infinite subsequence of $\{C(n)\}$ converges to the same limit. But consider the two subsequences $\{C(p^n+1)\}$ and $\{C(p^n+2)\}$. By \coref{limit cor}, 
+%$$\lim\limits_{n\rightarrow \infty}\left(\frac{C(p^n+1)}{C(p^n+2)}\right)=\frac{C(1)}{C(2)}=\frac{1}{2}\neq 1,$$ contradicting that all subsequences of $\{C(n)\}$ approach the same limit.
+%\end{proof}
+
+
+\end{textblock}
+%}}}2
+  %{{{2 Conclusion
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COLUMN 3                                          %
+% The top of column 3 is at coordinates (16,1.0)    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(16,1.0)
+  \LHead{Conclusion}\\
+
+\indent Combinatorial sequences, while they may not have limits, are integer sequences, and as such they have convergent subsequences by compactness of the $p$-adic integers. Sometimes the form of these limits can be difficult to characterize explicitly. In the case of the Catalan numbers, the sequence does not converge $p$-adically. However, we have an infinite class of increasing subsequences which have limits. 
+
+\indent The limits of these subsequences appear to resist evaluation by any standard means (such as power series expansions, or continuity). However, we have evaluated the $p$-adic limit of the subsequence $C(ap^n)$, and even more generally $C(ap^n+r)$, where $a$ is a constant and $r\in\integers$. The limits of these sequences can be written as an infinite product of numbers which don't divide $p$, raised to powers increasing logarithmically.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\indent It remains an open problem to generalize (let alone characterize) which  subsequences of Catalan numbers converge as well as to find the limits of these subsequences. The methods used here will no doubt present their utility in attempting to do this as well as in a similar analysis of other combinatorial sequences. 
+%Furthermore, it is unknown whether or not the limits established here are transcendental over the rational numbers.
+
+\end{textblock}
+%{{{3 Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography                                                   %
+% Coordinates (16,6) are good for the references                 %
+% but this will depend on your content and number of references. %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(16,6)
+  \renewcommand\refname{{\LARGE\color{DarkBlue} References}}
+  \hrule
+ \begin{thebibliography}{aaaa} 
+%%%
+\bibitem[FG]{FG} Gouvea, Fernando Q.
+\textit{$p$-adic Numbers: An Introduction}. Second Edition.
+Springer, 2003.
+%%%
+\bibitem[AG]{AG} Granville, Andrew.
+``Binomial coefficients modulo prime powers". \textit{Canadian Mathematical Society Conference Proceedings}, vol. 20, pp. 253-275. 1997.
+%%%
+\bibitem[NK]{NK} Koblitz, Neal.
+\textit{$p$-adic Numbers, $p$-adic Analysis, and Zeta-Functions}. Second Edition. Springer. 1984.
+%%%
+\bibitem[SK]{SK} Katok, Svetlana.
+\textit{$p$-adic Analysis Compared with Real}. American Mathematical Society. 2007.
+%%%
+\bibitem[ER]{ER} Rowland, Eric.
+``Regularity Versus Complexity in the Binary Representation of $3^n$". \textit{Complex Systems} 18, pp. 367-73. 2009. 
+%\bibitem[RS]{RS} Stanley, Richard.
+%\textit{Enumerative Combinatorics}. Vol 1. Second Edition. Cambridge University Press. 2011.
+%%%
+\end{thebibliography}
+
+ %bibliography here
+  \end{textblock}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgements                                              %
+% Coordinates (16,9.5) are good for the acknowledgments         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(16,9.5)
+  \hrule
+  \LHeadGreen{Acknowledgements}\\
+  % Enter acknowledgements here
+  This research was conducted during the 2014 Mathematical Sciences Research Institute Undergraduate Program (MSRI-UP) in Berkeley, CA under the direction of Prof. Victor H. Moll, Tulane University. MSRI-UP is supported by the National Science Foundation (grant No. DMS-1156499) and the National Security Agency (grant No. H-98230-13-1-0262). We would like to thank ... 
+\end{textblock}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Contact Information                                           %
+% Coordinates (16,11.5) are good for the contact information,   %
+% but the 11.5 may need to be adjusted depending on length of   %
+% references and acknowledgments. Info for authors entered      %
+% automatically from above.                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{textblock}{7}(16,11.5)
+  \hrule
+  \Subhead{Contact Information}:\ \
+  \firstauthor: {\sl \firstauthoremail};
+  \secondauthor: {\sl \secondauthoremail};\\
+  \thirdauthor: {\sl \thirdauthoremail}
+\end{textblock}
+
+\end{document}

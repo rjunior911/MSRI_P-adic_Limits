@@ -1,0 +1,620 @@
+% Run LaTeX on this file twice for proper section numbers and references.
+% A '%' causes LaTeX to ignore remaining text on the line. That is, "%"
+% is used to comment out text.
+\documentclass[12pt, letter]{article}    % Specifies the document style.
+\usepackage{graphicx, amsfonts, amssymb, amsmath, amsthm, amsxtra, multicol, cancel, enumitem, mathtools,hyperref,float}
+%\floatstyle{boxed}
+\restylefloat{figure}
+% The next few lines are formatting commands.
+% Do not change them because we
+% want all your technical reports to be formatted in a
+% similar way.
+\textwidth=6.5in
+\textheight=9in
+\hoffset=-0.5in
+\voffset=-0.85in
+%\setcounter{page}{19}
+\theoremstyle{plain}
+\renewcommand{\baselinestretch}{1.5}
+\allowdisplaybreaks
+\newtheorem{theorem}{Theorem}[section]
+
+%Initializing theorem, sets the theorem that you want all other theorems to follow, and makes its numbering by section
+\newtheorem{corollary}[theorem]{Corollary} 
+%Another theorem environment (in this case, corollary), with the same counter as the "theorem" environment
+\newtheorem{lemma}[theorem]{Lemma} 
+%lemma and proposition have the same numbering
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example} 
+%this numbering system may be extended to other theoremstyles
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\numberwithin{equation}{section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Put here useful user-defined definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\dis}{\displaystyle}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\nts}{$\!$}
+
+\newcommand{\thref}[1]{Theorem \ref{#1}}
+\newcommand{\coref}[1]{Corollary \ref{#1}}
+\newcommand{\lemref}[1]{Lemma \ref{#1}}
+\newcommand{\propref}[1]{Proposition \ref{#1}}
+\newcommand{\eref}[1]{Equation \ref{#1}}
+\newcommand{\exref}[1]{Example \ref{#1}}
+\newcommand{\fcite}[1]{[#1]}
+
+\newcommand{\thlabel}[1]{\label{#1}}
+
+\providecommand{\ceil}[1]{\left \lceil #1 \right \rceil }
+\providecommand{\floor}[1]{\left \lfloor #1 \right \rfloor }
+\providecommand{\Prod}{\prod\limits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{On $p$-adic Limits of Subsequences of the Catalan Numbers}
+
+\author{
+\textbf{Alexandra Michel}\\ \small{Mills College} \and
+\textbf{Andrew Miller}\\ \small{Amherst College} \and
+\textbf{Joseph Rennie}\\ \small{Reed College}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not touch the next two lines
+\begin{document}           % End of preamble.
+\maketitle                 % Produces the title.
+
+ 
+\begin{abstract}
+%The definition of a $p$-adically Cauchy convergent sequence can be equivalently stated in terms of congruences of elements of that sequence modulo arbitrarily large powers of $p$: a sequence is $p$-adically Cauchy convergent if and only if it is eventually constant modulo $p^k$ for all $k\in\mathbb{N}$. Using a result on factorials modulo powers of primes by Granville (1997), a class of $p$-adically convergent sequences of Catalan numbers is identified and characterized in terms of the $p$-ary expansion of the sequence elements. The limit of one such sequence, $\{C(2^n)\}$, is found.\\
+%ALTERNATE ABSTRACT
+
+% Combinatorial sequences are investigated in the $p$-adic fields for convergent subsequences. Methods are presented for finding such subsequences, as well as for determining the limits of these sequences, when the sequence can be written in terms of central binomial coefficients. These methods are demonstrated for the Catalan Sequence to determine an infinite class of convergent subsequences and present their limits as infinite products of integers raised to logarithmically-increasing exponents.
+
+Methods for determining $p$-adic convergence of sequences which are expressible in terms of products of factorials are established. The Catalan sequence is investigated, using these methods, for $p$-adically convergent subsequences. An infinite class of convergent subsequences of Catalan numbers is found for every prime, and the limits of these subsequences are evaluated.
+
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\subsection{The $p$-adic numbers}
+
+\indent A student familiar with introductory analysis will be familiar with the construction of $\mathbb{R}$ as a completion of $\mathbb{Q}$. In this construction of $\mathbb{R}$, its elements are defined as equivalence classes of sequences in $\mathbb{Q}$ which are Cauchy convergent with respect to the familiar Euclidean distance metric.  
+
+The \textit{$p$-adic field}, denoted $\mathbb{Q}_p$, is a second completion of $\mathbb{Q}$. Instead of the familiar Euclidean metric, it uses a metric induced by the {\it $p$-adic norm}.
+
+\begin{definition} The {\it $p$-adic valuation} of an integer $n$, denoted $\nu_p(n)$, is defined to be the greatest power of $p$ that divides $n$. For a rational number $x=\frac{a}{b}$, define $\nu_p(x)=\nu_p(|a|)-\nu_p(|b|)$. The {\it $p$-adic norm} of $x$ is defined as $|x|_p=p^{-\nu_p(x)}$.
+\end{definition}
+
+\begin{example}
+$\nu_5(35)=1$, because only one power of $5$ divides $35$, and  $|35|_5=5^{-\nu_5(35)}=5^{-1}=\frac{1}{5}$. 
+$\nu_5(25)=2$, so $|25|_5=5^{-\nu_5(25)}=5^{-2}=\frac{1}{25}$.
+\end{example}
+  
+% From this example, we see that a sequence of numbers will  approach zero $5$-adically if and only if the numbers are divisible by increasingly large powers of $5$. More generally, if we have a sequence is divisible by , each term will have $p$-adic norm smaller than the last, and hence the sequence will converge to zero $p$-adically. The notion of Cauchy convergence with respect to the $p$-adic norm can be defined in a manner analogous to that of Cauchy convergence with respect to the Euclidean norm. The {\it $p$-adic numbers} are then the completion of $\mathbb{Q}$ with respect to the $p$-adic norm.
+
+The $p$-adic metric is defined as the $p$-adic norm of the difference of two numbers in $\mathbb{Q}_p$. As noted, the completion of $\mathbb{Q}$ under the $p$-adic metric yields $\rationals_p$. A detailed account of the completion of $\rationals$ to $\rationals_p$ can be found in \fcite{FG}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Convergence in $\mathbb{Z}_p$}
+
+The definition of $p$-adic convergence is analogous to that of convergence with respect to the Euclidean metric.
+
+\begin{definition}[$p$-adic Convergence]
+Given a sequence $\{a_n\}\in\rationals_p$, we say that $\{a_n\}$ \textit{converges $p$-adically} if for all $k\geq1$, there exists an $N\in\mathbb{N}$ such that for all $m$, $n>N,$
+$$|a_m-a_n|_p\leq p^{-k}.$$
+\end{definition}
+
+\begin{example} In $\mathbb{Q}_p$, $\Lim{n\rightarrow\infty}p^n=0.$ This is because as $n$ increases, $\nu_p(p^n)=n$ increases, and thus $|p^n|_p=p^{-n}$ tends to 0.
+
+The sequence $\{p^n+1\}$, however, tends to 1. This is because $\nu_p(p^n+1)=0$ for all $n$, and thus for all $n$, $|p^n+1|_p=p^{0}=1$.
+\end{example}
+
+
+\noindent Because elements of combinatorial sequences are natural numbers, to investigate the convergence of the sequences it is superfluous to work in $\rationals_p$. Instead, one need only work in the completion of $\integers$ under the $p$-adic metric; this is a subset of $\rationals_p$ called the \textit{$p$-adic integers} (denoted $\mathbb{Z}_p$). It is well-known that $\integers_p$ is a compact subset of $\rationals_p$, which is itself a metric space. Thus, every combinatorial sequence has convergent subsequences in $\integers_p$.
+
+Investigating the convergence of these subsequences with respect to the $p$-adic metric has a few important advantages. The most important of these is that the $p$-adic metric satisfies a strong-triangle inequality.
+
+\begin{proposition}[Strong Triangle Inequality]\thlabel{triangle}
+For all $x$, $y\in\rationals_p$, 
+$$|x-y|_p\leq\max\{|x|_p,|y|_p\}.$$
+\end{proposition}
+
+\noindent Using the strong triangle inequality, it can be shown that a sequence converges $p$-adically if and only if its difference sequence converges.
+
+\begin{proposition}[Convergence Criterion]
+\thlabel{conv crit}
+In $\rationals_p$, a sequence $\{a_n\}$ converges if and only if the sequence $\{a_{n+1}-a_n\}$ converges.
+\end{proposition}
+
+\noindent For proofs of \propref{triangle} and \propref{conv crit}, see \fcite{FG} or \fcite{SK}. 
+
+Finally, we note an equivalent statement of the definition of $p$-adic convergence.
+
+\begin{proposition}[Equivalent Definition of $p$-adic Convergence]\thlabel{eq def}
+In $\rationals_p$, a sequence $\{a_n\}$ converges if and only if for all $k\geq1$, it is eventually constant modulo $p^k$. Furthermore, $\{a_n\}$ converges to a limit $L$ if and only if for all $k\geq1$, it is eventually constant to $L$ modulo $p^k$.
+\end{proposition}
+
+\begin{proof}
+Given $k\geq1$ and sufficiently large $m$ and $n$,
+\begin{eqnarray*}
+\left|f(n)-f(m)\right|_p\leq p^{-k}
+&\text{if and only if }& \nu_p(f(n)-f(m))\geq k\\
+&\text{if and only if }& f(n)-f(m)\equiv 0\pmod{p^k}\\
+&\text{if and only if }& f(n)\equiv f(m)\pmod{p^k},
+\end{eqnarray*}
+proving the first statement of \propref{eq def}. The proof of the second statement is almost identical.\end{proof}
+
+Note that it is easy to see that $p^n\rightarrow 0$ using \propref{eq def}. Given $k\geq1$, for all $n>k$, $p^n\equiv0\pmod{p^k}$.
+
+
+% In a 2010 paper, E. Rowland \fcite{ER} finds one such sequence: $\{3^{2^n}\}$. 
+
+% \begin{theorem}[Rowland 2010]\thlabel{ER}
+% In the $2$-adics, $\Lim{n\rightarrow\infty}3^{2^n}=1.$
+% \end{theorem}
+% Rowland first looked at $\{3^n\}$ in the $2$-adics, which does not converge, before noticing that the subsequence $\{3^{2^n}\}$ shows patterns of converging term by term when its terms are viewed in their base-$2$ representations as shown below. This array shows convergence because the rows begin to align vertically, meaning that the terms are divisible by increasingly many powers of $2$, and thus $2$-adically close. 
+% \begin{center}
+% \includegraphics[scale=.2]{3_2_n.jpeg}
+% \end{center}
+% Rowland shows that the limit is indeed $1$, but this is intuitively shown in the figure because the sequence seems to be approaching a base-$2$ representation with one block of {\it black}, which represents a $1$, in the $2^0$ place, and the rest {\it white} which represents $0$. This example of $p$-adic convergence is what motivates the search for other convergent sequences of $p$-adic numbers.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Catalan Numbers}
+
+This paper finds $p$-adic limits of subsequences of the Catalan numbers, C(n). The Catalan numbers are a famous sequence of natural numbers with numerous combinatorial interpretations. For example, they count the number of ways to balance $n$ pairs of parentheses (i.e., such that each open parathesis is closed and each closed parenthesis is opened). For example, $3$ pairs of paretheses can be arranged in the following ways.
+$$((())), \text{ } ()()(), \text{ }  (())(), \text{ }  ()(()),\text{ }   (()()).$$
+Thus, $C(3)=5$.
+
+The Catalan numbers have a convenient closed form in terms of the central binomial coefficients:
+$$C(n)=\frac{1}{n+1}\binom{2n}{n}.$$
+We can use this formula to check that $C(3)$ is indeed $5$.
+$$C(3)=\frac{1}{4}\binom{2\cdot3}{3}=\frac{6!}{4\cdot 3!^2}=\frac{5\cdot 6}{3!}=5.$$
+Finally, the closed form can be used to derive a recurrence for consecutive Catalan numbers. $$C(x+1)=\frac{2(2x+1)}{x+2}C(x).$$
+
+
+% The first questions that arise are:
+% \begin{itemize}
+% \item How can we know that a sequence is converging $p$-adically?
+% \item How do we find the limit of such a sequence? 
+% \end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5555
+
+\section{Finding the $p$-adic Limit of $C(ap^n)$}
+
+In this section, 
+\begin{equation*}\label{limit eq}\
+\Lim{n\rightarrow\infty}C(ap^n)
+\end{equation*} is determined for all $a\in\mathbb{N}$.\footnote{This limit is a $p$-adic limit, as are all other limits stated in this paper.}
+
+\begin{example}\label{2n}
+Data generated in Mathematica suggest that $\{C(2^n)\}$ converges. The following graphic shows the binary expansion of $C(2^n)$ for $n=1,2,\dots,25$. The $i^{th}$ row and $j^{th}$ column gives the coefficient on $2^{j-1}$ of $C(2^i)$. Coefficients with value 1 are represented by a black dot, those with value 0 by a white dot.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=.5]{Catalan.jpg}
+\end{center}
+\caption{Binary expansions of the first 25 terms of the sequence $C(2^n)$; the power of 2 increases from left to right.}
+\label{fig:catalan}
+\end{figure}
+
+\noindent For example, the first row shows the binary representation of $C(1)=1$. In binary, $1=1+0\cdot2+0\cdot2^2+\cdots$. The coefficient 1 on $2^0$ is represented by the black dot in the first column, and the 0 coefficients on the remaining powers of 2 are represented by white dots in the remaining columns.
+
+It is perhaps easiest to see why Figure \ref{fig:catalan} suggests that $\{C(2^n)\}$ converges by appealing to \propref{conv crit}. The binary expansion of $C(2^n)-C(2^{n-1})$ can be obtained by subtracting the $n-1^{st}$ row from the $n^{th}$ row. The resulting binary expansion has a 0 coefficient for all powers of 2 for which the coefficient of $C(2^n)$ agrees with that of $C(2^{n-1})$. As $n$ increases, Figure \ref{fig:catalan} indicates that the binary expansion of $C(2^n)-C(2^{n-1})$ has a 0 coefficient for an increasingly long string of powers of 2 (starting with $2^0$). This indicates that the $2$-adic valuation of $C(2^n)-C(2^{n-1})$ is increasing with $n$, and thus that $|C(2^n)-C(2^{n-1})|$ is tending to 0.
+\end{example}
+
+For general $a$ and $p$, to find the limit of $\{C(ap^n)\}$ it suffices to find the limit of $\{{2ap^n \choose ap^n}\}.$ This is demonstrated by the following lemma.
+
+\begin{lemma}
+\thlabel{plimit}
+In $\mathbb{Z}_p$, $\Lim{n\rightarrow\infty}C(ap^n)=\Lim{n\rightarrow\infty}{2ap^n \choose ap^n}$. 
+\end{lemma}
+
+\begin{proof}
+Let $k\geq 1$ be arbitrary. Given $n>k$, note that
+$$\left|\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right|_p<p^{-k} \text{ if and only if } \nu_p\left[\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right]>k,$$ so it suffices to show the latter. We have
+\begin{eqnarray*}
+\nu_p\left[\frac{1}{ap^n+1}\binom{2ap^n}{ap^n}-\binom{2ap^n}{ap^n}\right]&=&\nu_p\left[\left(\frac{1}{ap^n+1}-1\right)\binom{2ap^n}{ap^n}\right]\\
+&=&\nu_p\left(\frac{ap^n}{ap^n+1}\right)+ \nu_p\left[\binom{2ap^n}{ap^n}\right] \\
+&\geq& n> k,
+\end{eqnarray*} 
+as desired.
+\end{proof}
+\noindent Thus, the problem of finding the limit of $\{C(ap^n)\}$ can be reduced to that of finding the limit of the sequence of central binomial coefficients $\{{2ap^n \choose ap^n}\}$. The elements of this latter sequence can be expressed in terms of the well-known gamma function. On $\mathbb{Z}$, the gamma function is defined to be
+$$\Gamma(n)=(n-1)!.$$
+We can thus write $${2ap^n \choose ap^n}=\frac{\Gamma(2ap^n+1)}{(\Gamma(ap^n+1))^2}.$$ But since we are concerned with convergence in $\mathbb{Z}_p$, it will be more useful to write  ${2ap^n \choose ap^n}$ in terms of a $p$-adic analog to the gamma function.
+
+\begin{definition}[$p$-adic Gamma Function]
+Let $p$ be prime, and $x\in \mathbb{Z}_p$. The \textit{$p$-adic gamma function}, $\Gamma_p(x)$, is defined to be the unique continuous $p$-adic interpolation of the function taking the following values over $\mathbb{N}$.
+$$\Gamma_p(n)=(-1)^n\prod_{\substack{k=1\\p\nmid k}}^{n-1} k \hspace{2mm}\text{, and }\hspace{2mm}  \Gamma_p(0)=1.$$
+\end{definition}
+For a detailed exposition of the $p$-adic gamma function, including a proof of its existence and uniqueness, see \cite{FG}. The following proposition can be used to prove \lemref{primepowerfactorial}, which expresses ${2ap^n \choose ap^n}$ in terms of the $p$-adic gamma function.
+
+\begin{proposition}\thlabel{factorialgamma}
+For all primes $p$ and all $n\in\naturals$, 
+$$n!=\floor{\frac{n}{p}}!\Gamma_p(n+1)(-1)^{n+1}p^{\floor{\frac{n}{p}}}.$$
+\end{proposition}
+
+\begin{proof} We have
+$$\Gamma_p(n+1) =(-1)^{n+1}\prod_{\substack{k=1\\p\nmid k}}^{n} k 
+=\frac{(-1)^{n+1}(n)!}{\prod\limits_{\substack{k=1\\p\mid k}}^{n-1} k} 
+=\frac{(-1)^{n+1}(n)!}{p^{\floor{\frac{n}{p}}}\floor{\frac{n}{p}}!}.$$
+
+Solving for $n!$ gives the result.
+\end{proof}
+
+\begin{lemma}\thlabel{primepowerfactorial}
+For all primes $p$ and all $a\in\mathbb{N}$, $$\binom{2ap^n}{ap^n}=\binom{2a}{a}\prod\limits_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}.$$
+\end{lemma}
+
+\begin{proof}
+We first use \propref{factorialgamma} to express $(ap^n)!$ which gives
+\begin{equation}
+(ap^n)!  = (ap^{n-1})!\Gamma_p(ap^n+1)(-1)^{ap^n+1}p^{ap^{n-1}}.
+\end{equation}
+This is a first-order recursion on $n$. It can be used to show via induction that 
+\begin{equation}\label{induction}
+(ap^n)! = a!p^{\frac{ap^n-a}{p-1}}(-1)^{\sum_{i=1}^{n}ap^i+1}\prod_{i=1}^{n}\Gamma_p(ap^i+1).
+\end{equation}
+
+For the base case ($n=0$), we have $(ap^0)!=a!=a!p^0$. \\
+
+For the inductive step, assume that \eref{induction} holds when $n=k$. Then
+\begin{equation*}
+\begin{split}
+(ap^{k+1})!&=(ap^k)!\Gamma_p(ap^{k+1}+1)(-1)^{ap^{k+1}+1}p^{ap^k}\\
+&=\left[a!p^{\frac{ap^k-a}{p-1}}(-1)^{\sum_{i=1}^{k}ap^i+1}\prod_{i=1}^{k}\Gamma_p(ap^i+1)\right]\Gamma_p(ap^{k+1}+1)(-1)^{ap^{k+1}+1}p^{ap^k}\\
+&= a!p^{\frac{ap^{k+1}-a}{p-1}}(-1)^{\sum_{i=1}^{k+1}ap^i+1}\prod_{i=1}^{k+1}\Gamma_p(ap^i+1), 
+\end{split}
+\end{equation*}
+completing the induction and proving that \eref{induction} holds for all $n$. It can thus be shown that
+$$\binom{2ap^n}{ap^n}=\frac{(2ap^n)!}{(ap^n)!^2}=\frac{(2a)!(-1)^{n}}{(a!)^2}\prod_{i=1}^n \frac{\Gamma_p(2ap^i+1)}{\Gamma_p(ap^i+1)^2}=\binom{2a}{a}\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2},$$
+the desired result.\end{proof}
+
+\lemref{plimit} and \lemref{primepowerfactorial} imply that 
+\begin{equation}
+\label{implications}C(ap^n)\rightarrow {2ap^n \choose ap^n} \rightarrow {2a \choose a}\prod\limits_{i=1}^\infty \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2},
+\end{equation} 
+if the latter converges. To show this, one more lemma is needed.
+
+\begin{lemma}\thlabel{p gamma}
+Let $p$ be prime and let $a\in\mathbb{N}$. In $\mathbb{Z}_p$,
+$\Lim{n\rightarrow \infty}\Gamma_p(ap^n)=1.$
+\end{lemma} 
+
+\noindent Given \lemref{p gamma}, \eref{implications}, stated here as a theorem, can be proven.
+
+\begin{theorem}[Limits of Catalan Subsequences]\thlabel{limit thm}
+For all primes $p$ and all $a\in\mathbb{Z}$, the $p$-adic limit of $C(ap^n)$ exists and is given by $$\Lim{n\rightarrow \infty} C(ap^n)=
+\binom{2a}{a}\prod_{i=1}^{\infty}\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}.$$
+\end{theorem}
+
+\noindent \textbf{Note:} An elementary proof that $\{C(ap^n)\}$ converges (not that it approaches the stated limit) is given in an Appendix (Section 6).
+
+\begin{proof}[Proof of \thref{limit thm}]
+By \lemref{plimit} and \lemref{primepowerfactorial}, it suffices to show that $$\prod_{i=1}^\infty \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}$$ converges.
+
+To do so, fix $k\geq1$, and let $n>k$ be arbitrary. Then
+\begin{eqnarray*}
+\left|\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}-\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right|_p
+&=&\left|\left(\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right)\left(\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right)\right|_p\\
+&=&\left|\prod_{i=1}^{n-1} \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right|_p\cdot\left|\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right|_p\\
+&=&1\cdot\left|\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right|_p\rightarrow0,
+\end{eqnarray*}
+where $\Lim{n\rightarrow\infty}\left(\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)^2}-1\right)=0$ because by \lemref{p gamma},  $\Gamma_p(2ap^n)\rightarrow 1$ and $\Gamma_p(ap^n)\rightarrow1$.  \end{proof}
+
+We conclude this section by proving \lemref{p gamma}.
+
+\begin{proof}[Proof of \lemref{p gamma}]
+By \propref{eq def}, to prove \lemref{p gamma} it thus suffices to prove that for all $k\geq 1$ and all sufficiently large $n$, 
+\begin{equation}\label{well def}
+\Gamma_p(ap^n)\equiv 1\pmod{p^k}.\end{equation}
+To verfiy this, taking $n>k$ will suffice. For such $n$,\footnote{The arrays here are not matricies. Each row is a product, and the rows are being multiplied together. They are displayed in this way because it makes it easier to see what the terms of $\Gamma_p(ap^n)$ are equivalent to modulo $p^k$.}
+\begin{eqnarray*}
+ \Gamma_p(ap^n)&=&(-1)^{ap^n}
+\left(\begin{array}{ccc}
+(1) & \cdots & (p^n-1)\\
+(p^n+1) & \cdots & (2p^n-1)\\
+\vdots\\
+((a-1)p^n+1) & \cdots & (ap^n-1)
+\end{array}\right)
+\\
+&\equiv&(-1)^{ap^n}\left((1)\cdots(p^n-1)\right)^a \pmod{p^k}\\
+&=&(-1)^{ap^n}
+\left(
+\begin{array}{ccc}
+(1) & \cdots & (p^k-1)\\
+(p^k+1) & \cdots & (2p^k-1)\\
+\vdots\\
+(p^{k+1}-p^k+1) & \cdots & (p^{k+1}-1)\\
+(p^{k+1}+1) & \cdots & (p^{k+1}+p^k-1)\\
+\vdots\\
+(p^n-p^k+1) & \cdots & (p^n-1)
+\end{array}
+\right)^a\pmod{p^k}\\
+&\equiv&(-1)^{ap^n}\left((1)\cdots(p^k-1)\right)^{ap^{n-k}} \pmod{p^k}\\
+&\equiv&(-1)^{ap^n}(p^k-1)^{ap^{n-k}}\equiv(-1)^{ap^n}(-1)^{ap^{n-k}}\equiv(-1)^{ap^{n-k}(1+p^k)}\equiv 1\pmod{p^k}.
+\end{eqnarray*}
+
+The second to last equivalence is due to the fact that the factors of the product $(1)\cdots(p^k-1)$ are precisely the elements of the multiplication group $(\mathbb{Z}/p^k\mathbb{Z})^\times$. After multiplying inverses, $p^k-1$, which is its own inverse, remains. The last equivalence follows because either $ap^{n-k}$ or $1+p^k$ is even. This proves \eref{well def}.
+
+As was noted at the beginning of the proof, \eref{well def} implies that for arbitrary $k$ and all $n>k$, 
+$$\Gamma_p(ap^n)-1\equiv0\pmod{p^k},$$ so that 
+$$\nu_p(\Gamma_p(ap^n)-1)\geq k,$$ and finally 
+\[\left|\Gamma_p(ap^n)-1\right|_p\leq p^{-k}.\qedhere\] \end{proof}
+
+\begin{example} This example demonstrates \lemref{p gamma} for the case where $a=1$ and $p=2$. For an arbitrary $k\geq1$ and $n>k$, 
+$$\Gamma_p(2^n)=(-1)^{2^n}(1)(3)\cdots(2^n-3)(2^n-1).$$ The power of (-1) clearly evaluates to 1. The remainder of the expression can be further expanded by writing
+$$\Gamma_p(2^n)=\overbrace{(1)(3)\cdots(2^k-1)}\overbrace{(2^k+1)(2^k+3)\cdots(2^{k+1}-1)}\cdots\overbrace{(2^{n-1}+1)(2^{n+1}+3)\cdots(2^n-1)}.$$ As the braces indicate, the product can be divided into sections containing $\frac{2^k}{2}=2^{k-1}$ terms. There are $\frac{2^n}{2^k}=2^{n-k}$ such sections. The first is $(1)(3)\cdots(2^k-1)$, and the rest are all of the form $$(2^l+1)(2^l+3)\cdots(2^{l+1}-1),$$ where $l$ runs from $k$ to $n-1$. Thus each section is equivalent to $$(1)(3)\cdots(2^k-1)\pmod{2^k},$$ and we have that $$\Gamma_p(2^n)\equiv\left((1)(3)\cdots(2^k-1)\right)^{2^{n-k}}\pmod{p^k}.$$ As noted in the proof of \lemref{p gamma}, the product $(1)(3)\cdots(2^k-1)$ contains precisely the elements of $(\mathbb{Z}/2^k\mathbb{Z})^\times$. Now $$\left((1)(3)\cdots(2^k-1)\right)^2\equiv 1\pmod{p^k},$$ because when one copy of $(1)(3)\cdots(2^k-1)$ is multiplied by a second copy, every element of the group is multipled by its inverse, yielding 1. Thus, since in the expression for $\Gamma_p(2^n)$ the product $(1)(3)\cdots(2^k-1)$ is raised to a multiple of 2, we get that $\Gamma_p(2^n)\equiv 1\pmod{p^k}$ for all $k\geq1$ and all $n>k$. By \propref{eq def}, this implies that $\Gamma_p(2^n)\rightarrow 1.$
+\end{example}
+
+The next section uses the fact that $\Lim{n\rightarrow\infty}C(ap^n)$ is known to find $\Lim{n\rightarrow\infty}C(ap^n+r)$ for all $r\in\mathbb{Z}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This is done using the $p$-adic log. \begin{eqnarray*}
+% \log_p\left(\prod_{i=1}^n \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right) &=&  \sum_{i=1}^n\log_p\left( \frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\right) 
+% \end{eqnarray*}
+% This sum converges if and only if the terms converge to zero (i.e if and only if $\log_p\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2} \rightarrow 0$). By continuity of $\log_p$ it suffices to prove that $\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}\rightarrow 1$, which is true by straightforward application of \thref{plimit}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Finding the Limit of $C(ap^n+r)$}
+
+%Perhaps we should call it a theorem? There's a separate case for p=2, also the proof as it is takes up a whole page...
+
+Given that $\Lim{n\rightarrow\infty}C(ap^n)$ is known, it is not hard to find $\Lim{n\rightarrow\infty}C(ap^n+r)$ for all $r\in\mathbb{Z}$. The latter limit is thus presented as a corollary to \thref{limit thm}.
+
+\begin{corollary}\thlabel{limit cor}Let $r\in\mathbb{Z}$ and let $L=\Lim{n\rightarrow\infty}C(ap^n)$. Then
+$$\Lim{n\rightarrow\infty}C(ap^n+r)=\begin{cases}
+C(r)\cdot L & \mbox{if }r>0\\
+-\frac{1}{2}L & \mbox{if } r=-1 \text{ and } p\neq 2\\
+0 & \mbox{if } r<-1.
+\end{cases}$$
+\end{corollary}
+
+\begin{proof}
+Each case will be proven using induction and the recurrence $$C(x+1)=\frac{2(2x+1)}{x+2}C(x),$$ with the base case $C(0)=1$.
+Begin with the $r>0$ case. For the base case ($r=1$), we have
+\begin{eqnarray*}
+C(ap^n+1)&=&\frac{2(2ap^n+1)}{ap^n+2}C(ap^n)
+\rightarrow \frac{2}{2}\cdot L=C(1)\cdot L,
+\end{eqnarray*}
+as desired.
+
+For the inductive step, suppose that $C(ap^n+r)\rightarrow C(r)\cdot L.$ Then $$C(ap^n+r+1)=\frac{2(2(ap^n+r)+1)}{ap^n+r+2}C(ap^n+r)\rightarrow \frac{2(2r+1)}{r+2}C(r)\cdot L=C(r+1)\cdot L,$$
+proving the $r>0$ case.
+
+For the cases for which $r<0$, rewrite the recurrence as $$C(x)=\frac{(x+2)}{2(2x+1)}C(x+1).$$
+If $r=-1$, then
+$$C(ap^n-1)=\frac{ap^n-1+2}{2(2(ap^n-1)+1)}C(ap^n)=\frac{ap^n+1}{4ap^n-2}C(ap^n)\rightarrow -\frac{1}{2}\cdot L,$$ as desired.
+
+For the base case of the $r<-1$ case, we have
+$$C(ap^n-2)=\frac{ap^n-2+2}{2(2(ap^n-2)+1)}C(ap^n-1)=\frac{ap^n}{4ap^n-6}C(ap^n-1)\rightarrow\frac{0}{-6}\cdot\frac{-1}{2}\cdot L=0.$$
+Now suppose that $C(ap^n-r)=0$. Then for the inductive step,
+$$C(ap^n-r-1)=\frac{ap^n-r-1+2}{2(2(ap^n-r-1)+1)}C(ap^n-r)=\frac{ap^n-r+1}{4ap^n-4r-3}C(ap^n-r)\rightarrow\frac{r-1}{4r+3}\cdot 0=0,$$
+completing the $r<-1$ case and proving the theorem. \end{proof}
+
+We note two interesting consequences of \coref{limit cor}. First, since $\lim\limits_{n\rightarrow \infty}\frac{C(ap^n+r)}{C(ap^n)}=C(r)$ even when $r<0$, it suggests a definition of $C(n)$ for $n<0$. Such a defintion would, for example, give $C(-1)=-1/2$. 
+
+Secondly, \coref{limit cor} implies that $C(n)$ does not converge $p$-adically. This is because for a fixed $a$ we can choose distinct values of $r$ that yield convergent subsequences with different limits.
+
+\begin{proposition}
+For any prime $p$, $\{C(n)\}$ does not converge $p$-adically.
+
+\end{proposition}
+\begin{proof}
+Given a prime $p$, suppose that $\{C(n)\}$ converges $p$-adically. Then every infinite subsequence of $\{C(n)\}$ converges to the same limit. But consider the two subsequences $\{C(p^n+1)\}$ and $\{C(p^n+2)\}$. By \coref{limit cor}, 
+$$\lim\limits_{n\rightarrow \infty}\left(\frac{C(p^n+1)}{C(p^n+2)}\right)=\frac{C(1)}{C(2)}=\frac{1}{2}\neq 1,$$ contradicting that all subsequences of $\{C(n)\}$ approach the same limit.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{An Alternative Way of Stating the Limit of $C(ap^n)$}
+
+% The $p$-adic analytic proof \thref{class thm} requires the following definition of a $p$-adic analogue of the logarithm.
+% \begin{definition}[$p$-adic $\log$ function]
+% % Let $B=\{x\in\integers_p : |x-1|<1\}=1+ p\integers_p$. We define the $p$-adic logarithm of $x\in B$ as
+
+% % $$\log_p(x)=\sum_{n=1}^{\infty} (-1)^{n+1} \frac{(x-1)^n}{n}$$
+% %% \end{definition}
+
+% The reader may easily verify (or simply refer to \cite{FG}) that the familiar property of logarithms holds. Namely, $\log_p(ab)=\log_p(a)+\log_p(b)$ for all $a,b\in 1+p\mathbb{Z}_p$. With this result, and the following reduction, it will be easy to prove convergence of the subsequences of Catalan numbers stated above.
+
+\thref{limit thm} showed that 
+\begin{equation} \label{limit}
+\Lim{n\rightarrow \infty} C(ap^n)=
+\binom{2a}{a}\prod_{i=1}^{\infty}\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}.
+\end{equation}
+The goal of this section is to find a more illuminating expression of these limits. Hence, we arrive at the following proposition.
+
+\begin{proposition}\thlabel{re limit}  The limits in \eqref{limit} can be written as
+$$\binom{2a}{a}\prod_{\substack{i=1\\p\nmid i}}^{\infty}i^{2\floor{\log_p(i/a)}-\lfloor{\log(i/2a)}\rfloor}.$$
+\end{proposition} 
+
+% example for double limits on products: $$\prod\limits_{\substack{k=1\\p\nmid k}}^{n} k $$
+\noindent The proof of \propref{re limit} requires a lemma similar to \lemref{p gamma}.
+
+\begin{lemma}\thlabel{p gamma n}
+Let $p$ be prime and let $a\in\naturals$. In $\integers_p$, $$\Lim{n\rightarrow\infty}(\Gamma_p(ap^n))^n=1.$$
+\end{lemma}
+
+\begin{proof} The proof of \lemref{p gamma} showed that for all $k\geq 1,$
+$$\Gamma_p(ap^n)\equiv(-1)^{ap^n}((1)\cdots(p^k-1))^{ap^{n-k}}\equiv1\pmod{p^k}.$$ Thus
+$(\Gamma_p(ap^n))^n\equiv 1^n\equiv 1\pmod{p^k},$ so $(\Gamma_p(2ap^n)^n\rightarrow1,$ proving \lemref{p gamma n}.
+\end{proof}
+
+\propref{re limit} can now be proven.
+\begin{proof}[Proof of \propref{re limit}]
+
+The goal is to prove that 
+
+$$
+\prod_{i=1}^{\infty}\frac{\Gamma_p(2ap^i)}{\Gamma_p(ap^i)^2}=
+\prod_{\substack{i=1\\p\nmid i}}^{\infty}i^{2\floor{\log_p(i/a)}-\lfloor{\log_p(i/2a)}\rfloor}.$$
+We have
+$$\prod_{i=1}^{n}\frac{\Gamma_p (2ap^i)}{\Gamma_p (2ap^i)^2} = \frac{(1 \cdots (2ap-1))^n((2ap+1) \cdots (2ap^2-1))^{n-1}\cdots((2ap^{n-1}+1) \cdots (2ap^{n}-1))}{[(1 \cdots (ap-1))^n((ap+1) \cdots (ap^2-1))^{n-1}\cdots((ap^{n-1}+1) \cdots (ap^{n}-1))]^2}.
+$$
+Factoring out a copy of each factor raised to $n$, we thus have
+$$
+\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n \frac{(1 \cdots (2ap-1))^0((2ap+1) \cdots (2ap^2-1))^{-1}\cdots((2ap^{n-1}+1) \cdots (2ap^{n}-1))^{n-1}}{[(1 \cdots (ap-1))^0((ap+1) \cdots (ap^2-1))^{-1}\cdots((ap^{n-1}+1) \cdots (ap^{n}-1))^{n-1}]^2}.
+$$
+%%%%%%%%%%%%%%%%%%
+
+% By \thref{p gamma n}, the factor on the left tends to 1. 
+The factor on the right has a nice form as the product of coprime numbers raised to logarithmically increasing powers. The whole expression is written as follows.
+
+\begin{align*}
+\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n\frac{\prod\limits_{\substack{i=1 \\ p \nmid i}}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}}\right)}{\prod\limits_{\substack{i=1 \\ p \nmid i}}^{2ap^n-1}\left(i^{\floor{\log_p(i/2a)}}\right)} 
+&=\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n\frac{ \prod\limits_{\substack{i=1 \\ p \nmid i}}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}-\floor{\log_p(i/2a)}}\right)}{ \prod\limits_{\substack{i=ap^n+1 \\ p \nmid i }}^{2ap^n-1}\left(i^{\floor{\log_p(i/2a)}}\right)}\\ 
+ &=\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n\frac{ \prod\limits_{\substack{i=ap+1 \\ p \nmid i }}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}-\floor{\log_p(i/2a)}}\right)}{\prod\limits_{\substack{i=ap^n+1 \\ p \nmid i }}^{2ap^n-1}\left(i^{n-1}\right)}\\ 
+&=\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n\left(\frac{\Gamma_p(ap^n)}{\Gamma_p(2ap^n)}\right)^{n-1}\prod\limits_{\substack{i=ap+1 \\ p \nmid i }}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}-\floor{\log_p(i/2a)}}\right)\\
+% &=\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^2}\right)^n\left(\frac{\Gamma_p(ap^n)}{\Gamma_p(2ap^n)}\right)^{n}\left(\frac{\Gamma_p(2ap^n)}{\Gamma_p(ap^n)}\right)\prod\limits_{\substack{i=ap+1 \\ p \nmid i }}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}-\floor{\log_p(i/2a)}}\right)\\
+ &=\left(\frac{ \Gamma_p (2ap^n)}{ \Gamma_p (ap^n)^{n+1}}\right)\prod\limits_{\substack{i=ap+1 \\ p \nmid i }}^{ap^n-1}\left(i^{2\floor{\log_p(i/a)}-\floor{\log_p(i/2a)}}\right).
+\end{align*}
+
+\noindent The result follows from \lemref{p gamma n} and \lemref{p gamma}.\end{proof}
+
+Using \propref{re limit}, $\Lim{n\rightarrow\infty}C(2^n)$ (see \exref{2n}) can be expressed nicely as a product numbers coprime to $2$ raised to logarithmically increasing powers. 
+
+\begin{example}
+In $\mathbb{Z}_p$, $\Lim{n\rightarrow\infty}C(2^n)=2\cdot3\cdot(5\cdot7)^2\cdot(9\cdot11\cdot13\cdot15)^3\cdots.$ This is an infinite product consisting of blocks of $2^n$ consecutive odd numbers raised to the $n+1^{st}$ power.
+\end{example}
+
+% \begin{proof}[Alternate Proof]
+% The Mahler Expansion of a $p$-adic function is defined as     . We know that the first coefficient of the Mahler expansion gives the first coefficient of the power series. $\Gamma_2$ has a continuous $p$-adic interpolation with constant coefficient equal to $1$ Therefore the $\Lim{n\rightarrow \infty}(\Gamma_2(2^n))^n=1$.
+% \end{proof}
+
+
+% \begin{proposition}\thlabel{catalimit}
+% \end{proposition}
+
+% \begin{proof}
+% By \thref{plimit}, $C(2^n)\sim{2^{n+1} \choose 2^n}$. It thus suffices to find the limit of the latter.
+% Applying the well-known identity $\binom{2n}{n} =\frac{2^{2n}\Gamma_2(2n)}{n!}$ and the formula for the $2$-adic valuation of factorials, we get
+% \begin{eqnarray*}
+% C'(2^n)&\rightarrow&\frac{2^{2^n}}{2^{2^n-1}\Pi_{i=0}^{n}\Gamma_2 (2^i)}\\
+% &=& \frac{2}{3^{n-1}\cdot(5\cdot7)^{n-2}\cdot(9\cdot11\cdot13\cdot15)^{n-3}\cdots}\\
+% &=& \frac{2\cdot3\cdot(5\cdot7)^2\cdot(9\cdot11\cdot13\cdot15)^3\cdots}{(3\cdot5\cdot7\cdots)^n}
+% \end{eqnarray*}
+% By \thref{p gamma} the denominator goes to $1$ as $n\rightarrow\infty$.
+% \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+Combinatorial sequences, while they may not have limits, are integer sequences, and as such they have convergent subsequences by compactness of the $p$-adic integers. Sometimes the form of these limits can be difficult to characterize explicitly. In the case of the Catalan numbers, the sequence does not converge $p$-adically. However, we have an infinite class of increasing subsequences which have limits. 
+
+The limits of these subsequences appear to resist evaluation by any standard means (such as power series expansions, or continuity). However, we have evaluated the $p$-adic limit of the subsequence $C(ap^n)$, and even more generally $C(ap^n+r)$, where $a$ is a constant and $r\in\integers$. The limits of these sequences can be written as an infinite product of numbers which don't divide $p$, raised to powers increasing logarithmically.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Open Problems}
+
+It remains an open problem to characterize all convergent subsequences of Catalan numbers as well as to find the limits of these subsequences. The methods used to answer these questions will no doubt present their utility in a similar analysis of other combinatorial sequences. Furthermore, it is unknown whether or not the limits established here are transcendental over the rational numbers.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix: An Elementary Proof that $\{C(ap^n)\}$ Converges}
+
+\propref{eq def} states that to show that a sequence $\{f(n)\}$ converges $p$-adically, it suffices to show that its elements are eventually constant modulo arbitrarily large powers of $p$. This equivalent definition of $p$-adic convergence is useful because there are existing results on factorials, binomial coefficients, and Catalan numbers modulo powers of primes. One such result is used to prove 
+
+\begin{theorem}\thlabel{class thm}
+For all primes $p$ and all $a\in\mathbb{N}$, $\{C(ap^n)\}_{n\geq 0}$ converges $p$-adically.
+\end{theorem}
+
+\noindent The proof of \thref{class thm} relies on a 1997 result due to Granville.
+
+\begin{theorem}[Granville 1997]\thlabel{granlem1}
+
+Let $n$ be an integer, and write $n=\gamma_0+\gamma_1p+\dots+\gamma_dp^d$ in base $p$. For $j\geq 0$ and $p^k$ a power of $p$, define $n_j$ to be the least positive residue of $\lfloor\frac{n}{p^j}\rfloor\pmod{p^k}$ (so that $n_j=\gamma_j+\gamma_{j+1}p+\dots+\gamma_{j+k-1}p^{k-1}$). Define $(n_j!)_p$ to be the product of numbers $\leq n_j$ that are coprime with $p$. Then $$n!\equiv p^{\nu_p(n!)}(\delta(p,k))^{\nu_{p^k}(n!)}\prod_{j=\geq0}(n_j!)_p \pmod{p^k},$$ where $\delta(p,k)=\begin{cases} 1 &\mbox{if } p=2 \mbox{ and } k\geq 3 \\ -1 &\mbox{otherwise}. \end{cases}$ 
+\end{theorem}
+
+\noindent Since $C(n)=\frac{(2n)!}{n!(n+1)!}$, applying \thref{granlem1} to $C(n)$ yields \begin{equation}\label{catalan mod}C(n)\equiv \delta^{\nu_{p^k}(C(n))}p^{\nu_p(C(n))}\overbrace{\frac{\prod_{j\geq0}((2n)_j)!_p}{\prod_{j\geq 0}(n_j)!_p\prod_{j\geq 0}((n+1)_j)!_p}}^{\mathcal{P}(n)} \pmod{p^k}.\end{equation} 
+\thref{class thm} uses the case $n=ap^n$. To show that $\{C(ap^n)\}$ is eventually constant modulo $p^k$, it thus suffices to show that all three components of the right-hand side of (\eref{catalan mod}) (the power of $\delta$, the power of $p$, and $\mathcal{P}(n)$) are eventually constant modulo $p^k$.
+
+\begin{proof}[Proof of \thref{class thm}] Fix $k\geq1$. Write $a=\alpha_0+\alpha_1p+\dots+\alpha_mp^m$ in base $p$ ($\alpha_i\neq0$ for all $i$), so that $ap^n=\alpha_0p^n+\dots+\alpha_mp^{n+m}$ in base $p$. To show that $\delta^{\nu_{p^k}(C(ap^n))}$ and  $p^{\nu_p(C(ap^n))}$ are eventually constant modulo $p^k$, it is clearly sufficient to show that $\nu_{p^k}(C(ap^n))$ is constant for all $n$. This is an easy application of Legendre's 1808 result that $\nu_p(n!)=\frac{n-s(n)}{p-1}$, where $s(n)$ is the sum of the base-$p$ coefficients of $n$. We have 
+\begin{eqnarray*}
+\nu_{p^k}(C(ap^n))=\nu_{p^k}\left(\frac{(2ap^n)!}{((ap^n)!)^2}\right)&=&\nu_{p^k}((2ap^n)!)-2\nu_{p^k}(n!)\\
+&=&\frac{2ap^n-s(2ap^n)}{p-1}-2\frac{ap^n-s(ap^n)}{p-1}\\
+&=&\frac{2ap^n-s(2ap^n}{p-1}-\frac{2ap^n-2s(ap^n)}{p-1}\\
+&=&\frac{2s(ap^n)-s(2ap^n)}{p-1},
+\end{eqnarray*}
+which does not vary with $n$.
+
+Thus, all that remains to show is that $\mathcal{P}(ap^n)$ is eventually constant. This expression can be simplified considerably by showing that
+\begin{equation}\label{apn1} (ap^n+1)_j=\begin{cases} ap^n_0+1 &\mbox{if } j=0 \\ ap^n_j &\mbox{if } j\neq0 \end{cases}\end{equation} and that \begin{equation}\label{2apn} (2ap^n)_j=2(ap^n_j) \mbox{ for all } j.\end{equation}
+
+To verify \eref{apn1}, note that the base-$p$ expansion of $ap^n+1$ differs from that of $ap^n$ only in that its $p^0$ coefficient is 1, whereas the $p^0$ coefficient of the base-$p$ expansion $ap^n$ is 0. The $p^0$ coefficient is included in $ap^n_j=a_jp^j+a_{j+1}p^{j+1}+\dots+a_{j+k-1}p^{j+k-1}$ only when $j=0$; thus, $(ap^n+1)_0=ap^n_0+1$ for $j=0$ and $(ap^n+1)_j=ap^n_j$ otherwise. 
+
+To verify \eref{2apn}, simply note that for all $j$
+$$(2ap^n)_j=\lfloor\frac{2ap^n}{p^j}\rfloor\pmod{p^k}=2ap^{n-j}\pmod{p^k}=2\lfloor\frac{ap^n}{p^j}\rfloor\pmod{p^k}=2ap^n_j.$$
+Applying \eref{apn1} and \eref{2apn} to $\mathcal{P}(ap^n)$ gives $$\mathcal{P}(ap^n)=\frac{\prod_{j\geq0}((2ap^n)_j)!_p}{\prod_{j\geq 0}(ap^n_j)!_p\prod_{j\geq 0}((ap^n+1)_j)!_p}=\frac{2}{ap^n_0+1}\cdot\overbrace{\prod_{j\geq1}\frac{(2ap^n_j)!_p}{((ap^n_j)!_p)^2}}^{\mathcal{P}'(ap^n)}.$$ 
+Clearly, this is eventually constant modulo $p^k$ if $ap^n_0$ and $\mathcal{P}'(ap^n)$ are. It is easy to check that the former is constant for all $n>k$. $\mathcal{P}'(ap^n)$ varies with $n$ only if the set $\{ap^n_j\}_{j\geq1}$ does. Define
+$$ap^n_J=\{ap^n_j\}_{j\geq1}.$$
+Then $\mathcal{P}'(ap^n)$ is eventually constant modulo $p^k$ if $ap^n_J$ is constant for all sufficiently large $n$.
+
+To prove this, it suffices to take $n>k$. Given such an $n$, write $ap^n=a_np^n+a_{n+1}p^{n+1}+\dots+a_{n+m}p^{n+m}$, where $a_{n+i}=\alpha_i$ for $i\in\{0,\dots,m\}$. For $j\in\mathbb{N}\setminus\{n-k+1,\dots,n+m\}$, $ap^n_j=0$, since none of $a_n$ through $a_{n+m}$ (the non-zero coefficients of the base-$p$ expansion of $ap^n$) appears as a coefficient of $ap^n_j$ for any such $j$. Thus there are $n+m-(n-k)=m+k$ values of $j$ for which $ap^n_j$ is non-zero (crucially, this number does not depend on $n$). Running $j$ from $n-k+1$ to $n+m$, we get that $ap^n_J=\{\alpha_0p^{k-1},\alpha_0p^{k-2}+\alpha_1p^{k-1},\dots,\alpha_{m-1}+\alpha_mp,\alpha_m\}$. None of the elements of this set depends on $n$, as desired. \end{proof}
+
+Retracing the steps of the proof, showing that $ap^n_J$ is eventually constant modulo an arbitrary power of $p$ (say $p^k$) was sufficient to show that $\mathcal{P}'(ap^n)$, and thus $\mathcal{P}(ap^n)$, is eventually constant modulo $p^k$. This was was needed to prove our original objective, that \eref{catalan mod} is eventually constant modulo $p^k$. Furthermore, recall that this is sufficient to show convergence because for all $k$ and sufficiently large $m$ and $n$, 
+$$|f(n)-f(m)|_p\leq p^{-k}\text{ if and only if } f(n)\equiv f(m)\pmod{p^k}.$$
+
+Showing that $ap^n_J$ is eventually constant modulo $p^k$ is thus crucial step of the proof. It is also its most difficult step. The following example is meant to give the reader a better sense of $ap^n_J$, and of why it is eventually constant, by way of the sequence $\{C(p^n)\}$.
+
+\begin{example} Suppose that $a=1$, so that $ap^n=p^n$. Fix $k=3$. For a given $n>3$, the base-$p$ expansion of $p^n=a_np^n=1\cdot p^n$ has only one non-zero coefficient, so for all $j\geq 1$, $p^n_j=a_j+a_{j+1}p+a_{j+2}p^2$ will have at most one non-zero term. If none of $j$, $j+1$, or $j+2$ is $n$, then $p^n_j$=0; thus, $p^n_j=0$ for all $j\in\mathbb{N}\setminus\{n-2,n-1,n\}$. For the remaining values of $j$, we have tht $p^n_{n-2}=p^2$, $p^n_{n-1}=p$, and $p^n_n=1$, so that $p^n_J=\{1,p,p^2\}$. The cardinality of this set, $3=0+3=m+k$, does not depend on $n$, and neither do its elements.
+
+Notice that taking $n>k=3$ is necessary because if $n=2$, for instance, $p^2_1=p$, $p^2_2=1$, and $p^2_j=0$ for all  $j>2$. Thus $p^2_J=\{1,p\}$; $p^2$ is excluded from $p^2_J$ because there are no $j$ for which $a_{j+2}$ is non-zero.
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Acknowledgments}
+% Do not alter the first sentence of the acknowledgments. 
+This work was carried out during the 2014 Mathematical Sciences Research Institute Undergraduate
+Program (MSRI-UP) which is funded by the National Science Foundation 
+(grant No. DMS-1156499) and the National Security Agency (grant No. H-98230-13-1-0262). 
+We would like to thank Dr. Victor Moll, Dr. Herbert Medina, Dr. Eric Rowland, Asia Wyatt and our peers in MSRI-UP 2014 for their support throughout this process. 
+
+The first author would like to thank Dr. Zvezdelina Stankova and Dr. Maia Averett for recommending her to MSRI-UP, and supporting her pursuit of education in mathematics.
+
+The second author would like to thank Dr. Robert Benedetto, an exceptional teacher who recommended him to MSRI-UP and who, more importantly, played a crucial role in piquing his interest in mathematics. The second author would surely not have had the opportunity to conduct mathematics research if it were not for Dr. Benedetto's guidance.
+
+The third author would like to thank Dr. Irena Swanson and Dr. James Fix for their support and inspiration, mathematical and otherwise.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{aaaa} 
+%%%
+\bibitem[FG]{FG} Gouvea, Fernando Q.
+\textit{$p$-adic Numbers: An Introduction}. Second Edition.
+Springer, 2003.
+%%%
+\bibitem[AG]{AG} Granville, Andrew.
+``Binomial coefficients modulo prime powers". textit{Canadian Mathematical Society Conference Proceedings}, vol. 20, pp. 253-275. 1997.
+%%%
+\bibitem[NK]{NK} Koblitz, Neal.
+\textit{$p$-adic Numbers, $p$-adic Analysis, and Zeta-Functions}. Second Edition. Springer. 1984.
+%%%
+\bibitem[SK]{SK} Katok, Svetlana.
+\textit{$p$-adic Analysis Compared with Real}. American Mathematical Society. 2007.
+%%%
+\bibitem[ER]{ER} Rowland, Eric.
+``Regularity Versus Complexity in the Binary Representation of $3^n$". \textit{Complex Systems} 18, pp. 367-73. 2009. 
+\bibitem[RS]{RS} Stanley, Richard.
+\textit{Enumerative Combinatorics}. Vol 1. Second Edition. Cambridge University Press. 2011.
+%%%
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix
+
+%https://www.writelatex.com/1299217kfktnv#/3181356/
+\end{document}
